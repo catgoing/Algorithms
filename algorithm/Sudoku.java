@@ -41,8 +41,6 @@ public class Sudoku {
 				}
 			}
 		}
-//		System.out.println("target size: " + target.size());
-		
 		backTracking(0);
 		
 		System.out.println(sb);
@@ -50,28 +48,20 @@ public class Sudoku {
 	}
 	
 	public static void backTracking(int targetNo) {
-//		System.out.println(targetNo);
 		if(targetNo == target.size()) {
 			for (int i = 0; i < map.length; i++) {
 				sb.append(Arrays.toString(map[i]).replace("[", "").replace("]", "").replace(",", ""));
 				sb.append("\n");
 			}
-			return;
+			System.out.println(sb);
+			System.exit(0);
 		}
 		
 		int x = target.get(targetNo)[0];
 		int y = target.get(targetNo)[1];
-//		System.out.println(x+", " + y);
 		for (int i = 0; i < 9; i++) {
-//			if(x == 1 && y == 3) {
-//				System.out.println("map[x][y] = " + (i + 1));
-//			}
-//			System.out.println(map[x][y]);
 			if(isPossible(x, y, i + 1)) {
 				map[x][y] = i + 1;
-//				for (int z = 0; z < map.length; z++) {
-//					System.out.println(Arrays.toString(map[z]).replace("[", "").replace("]", "").replace(",", ""));
-//				}
 				backTracking(targetNo + 1);
 				map[x][y] = 0;
 			}
@@ -80,18 +70,12 @@ public class Sudoku {
 	}
 	
 	public static boolean isPossible(int x, int y, int value) {
-//		if(x==1 && y ==3) {
-//			System.out.println();
-//		}
+
 		int squareX = (x / 3) * 3;
 		int squareY = (y / 3) * 3;
 		
 		//가로줄 체크
 		for (int i = 0; i < 9; i++) {
-			if(i == y) {
-				continue;
-			}
-			
 			if(value == map[x][i]) {
 				return false;
 			}
@@ -99,10 +83,6 @@ public class Sudoku {
 		
 		//세로줄 체크
 		for (int i = 0; i < 9; i++) {
-			if(i == x) {
-				continue;
-			}
-			
 			if(value == map[i][y]) {
 				return false;
 			}
@@ -112,13 +92,6 @@ public class Sudoku {
 		
 		for (int i = squareX; i < squareX + 3; i++) {
 			for (int j = squareY; j < squareY + 3; j++) {
-//				if(x == 1 && y == 0) {
-//					System.out.println("i: " + i + ", j: " + j + " / " + map[i][j]);
-//				}
-				if(i == x && j == y) {
-					continue;
-				}
-				
 				if(value == map[i][j]) {
 					return false;
 				}
